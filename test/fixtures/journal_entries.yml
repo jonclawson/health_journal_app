@@ -1,9 +1,17 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+dave_entry_one:
+  client: dave
+  content: "Feeling great after following the meal plan today."
+  created_at: <%= 2.days.ago.to_fs(:db) %>
+  updated_at: <%= 2.days.ago.to_fs(:db) %>
 
-one:
-  client: one
-  content: MyText
+dave_entry_two:
+  client: dave
+  content: "Second week check-in: down 3 lbs, feeling motivated!"
+  created_at: <%= 1.day.ago.to_fs(:db) %>
+  updated_at: <%= 1.day.ago.to_fs(:db) %>
 
-two:
-  client: two
-  content: MyText
+eve_entry_one:
+  client: eve
+  content: "Had trouble hitting my water target — will try harder tomorrow."
+  created_at: <%= 3.hours.ago.to_fs(:db) %>
+  updated_at: <%= 3.hours.ago.to_fs(:db) %>

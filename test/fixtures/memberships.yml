@@ -1,11 +1,19 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+alice_dave:
+  provider: alice
+  client: dave
+  plan: premium
 
-one:
-  provider: one
-  client: one
-  plan: MyString
+alice_eve:
+  provider: alice
+  client: eve
+  plan: basic
 
-two:
-  provider: two
-  client: two
-  plan: MyString
+bob_eve:
+  provider: bob
+  client: eve
+  plan: premium
+
+bob_frank:
+  provider: bob
+  client: frank
+  plan: basic
