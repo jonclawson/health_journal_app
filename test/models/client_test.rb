@@ -27,7 +27,7 @@ class ClientTest < ActiveSupport::TestCase
 
   test "returns all providers for a given client" do
     eve_providers = clients(:eve).providers.pluck(:name).sort
-    assert_equal ["Alice (Dietitian)", "Bob (Nutritionist)"], eve_providers
+    assert_equal [ "Alice (Dietitian)", "Bob (Nutritionist)" ], eve_providers
   end
 
   test "has many journal entries" do
