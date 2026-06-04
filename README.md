@@ -1,24 +1,13 @@
-# README
+# Health Journal app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an example of Ruby on Rails models.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Both providers and clients have a name and email address
+- Providers have many clients; clients can have more than one provider
+- For each provider a client is signed up with, they have one plan - either "basic" or "premium"
+- Clients can post journal entries consisting of freeform text
+### ActiveRecord queries:
+- All clients for a given provider
+- All providers for a given client
+- All journal entries for a given client, sorted by date
+- All journal entries across all clients of a given provider, sorted by date
