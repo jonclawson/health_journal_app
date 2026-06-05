@@ -61,15 +61,17 @@ function ClientsCard() {
             <tr className="text-left text-slate-500 border-b border-slate-200">
               <th className="pb-3 font-medium">Name</th>
               <th className="pb-3 font-medium">Email</th>
+              <th className="pb-3 font-medium">Memberships</th>
               <th className="pb-3 font-medium">Journal Entries</th>
               <th className="pb-3 font-medium">Created</th>
             </tr>
           </thead>
           <tbody>
-            {clients.map((c: { id: string; name: string; email: string; journalEntries: { id: string }[]; createdAt: string }) => (
+            {clients.map((c: { id: string; name: string; email: string; memberships: { id: string }[]; journalEntries: { id: string }[]; createdAt: string }) => (
               <tr key={c.id} className="border-b border-slate-100 last:border-0">
                 <td className="py-3 text-slate-800 font-medium">{c.name}</td>
                 <td className="py-3 text-slate-600">{c.email}</td>
+                <td className="py-3 text-slate-600">{c.memberships.length}</td>
                 <td className="py-3 text-slate-600">{c.journalEntries.length}</td>
                 <td className="py-3 text-slate-600">{new Date(c.createdAt).toLocaleDateString()}</td>
               </tr>
