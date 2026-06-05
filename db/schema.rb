@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_04_165340) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_05_014833) do
   create_table "clients", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_04_165340) do
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["client_id", "created_at"], name: "index_journal_entries_on_client_id_and_created_at"
     t.index ["client_id"], name: "index_journal_entries_on_client_id"
   end
 
