@@ -10,8 +10,8 @@ module Types
       context.schema.object_from_id(id, context)
     end
 
-    field :nodes, [Types::NodeType, null: true], null: true, description: "Fetches a list of objects given a list of IDs." do
-      argument :ids, [ID], required: true, description: "IDs of the objects."
+    field :nodes, [ Types::NodeType, null: true ], null: true, description: "Fetches a list of objects given a list of IDs." do
+      argument :ids, [ ID ], required: true, description: "IDs of the objects."
     end
 
     def nodes(ids:)
@@ -27,7 +27,7 @@ module Types
       Provider.find_by(id: id)
     end
 
-    field :providers, [Types::ProviderType, null: false], null: false
+    field :providers, [ Types::ProviderType, null: false ], null: false
 
     def providers
       Provider.all
@@ -42,7 +42,7 @@ module Types
       Client.find_by(id: id)
     end
 
-    field :clients, [Types::ClientType, null: false], null: false
+    field :clients, [ Types::ClientType, null: false ], null: false
 
     def clients
       Client.all
@@ -57,7 +57,7 @@ module Types
       Membership.find_by(id: id)
     end
 
-    field :memberships, [Types::MembershipType, null: false], null: false do
+    field :memberships, [ Types::MembershipType, null: false ], null: false do
       argument :provider_id, ID, required: false
       argument :client_id, ID, required: false
     end
@@ -78,7 +78,7 @@ module Types
       JournalEntry.find_by(id: id)
     end
 
-    field :journal_entries, [Types::JournalEntryType, null: false], null: false do
+    field :journal_entries, [ Types::JournalEntryType, null: false ], null: false do
       argument :client_id, ID, required: false
     end
 
