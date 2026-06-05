@@ -1,15 +1,7 @@
-interface Column<T> {
-  key: string;
-  label: string;
-  render: (item: T) => React.ReactNode;
-}
-
-interface DataTableProps<T> {
-  columns: Column<T>[];
-  rows: T[];
-}
-
-export default function DataTable<T>({ columns, rows }: DataTableProps<T>) {
+export default function DataTable({ columns, rows }: {
+  columns: { key: string; label: string; render: (item: any) => React.ReactNode }[];
+  rows: any[];
+}) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
