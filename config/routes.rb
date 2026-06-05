@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "dashboard#show"
+
   post "/graphql", to: "graphql#execute"
 
   if Rails.env.development?
