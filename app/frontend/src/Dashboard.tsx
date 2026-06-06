@@ -36,8 +36,10 @@ function DetailPanel({ detail, onClose }: { detail: NonNullable<DetailView>; onC
   return <DetailClientJournals clientId={detail.clientId} clientName={detail.clientName} onClose={onClose} />;
 }
 
+interface Provider { clients: Array<{ name: string; email: string; createdAt: string }> };
 function DetailProviderClients({ providerId, providerName, onClose }: { providerId: string; providerName: string; onClose: () => void }) {
   const { loading, error, data } = useQuery(GET_PROVIDER_CLIENTS, { variables: { id: providerId } });
+  const provider = (data as { provider: Provider })?.provider;
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
@@ -47,30 +49,25 @@ function DetailProviderClients({ providerId, providerName, onClose }: { provider
       </div>
       {loading && <p className="text-slate-500">Loading...</p>}
       {error && <p className="text-red-500">Error: {error.message}</p>}
-      {data && (
-        <>
-          {(() => {
-            const clients = (data as { provider: { clients: Array<{ name: string; email: string; createdAt: string }> } }).provider.clients;
-            return (
-              <DataTable
+      {provider && <DataTable
                 columns={[
                   { key: 'name', label: 'Name', render: (c) => <span className="text-slate-800 font-medium">{c.name}</span> },
                   { key: 'email', label: 'Email', render: (c) => c.email },
                   { key: 'createdAt', label: 'Created', render: (c) => new Date(c.createdAt).toLocaleDateString() },
                 ]}
-                rows={clients}
-              />
-            );
-          })()}
-        </>
-      )}
+                rows={provider.clients}
+              />}
     </div>
   );
 }
 
+interface Client { 
+  memberships: Array<{ plan: string; provider: { name: string }; createdAt: string }>;
+  journalEntries: Array<{ content: string; createdAt: string }> 
+};
 function DetailClientMemberships({ clientId, clientName, onClose }: { clientId: string; clientName: string; onClose: () => void }) {
   const { loading, error, data } = useQuery(GET_CLIENT_MEMBERSHIPS, { variables: { id: clientId } });
-
+  const client = (data as { client: Client })?.client;
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
       <div className="flex items-center justify-between mb-4">
@@ -79,30 +76,21 @@ function DetailClientMemberships({ clientId, clientName, onClose }: { clientId: 
       </div>
       {loading && <p className="text-slate-500">Loading...</p>}
       {error && <p className="text-red-500">Error: {error.message}</p>}
-      {data && (
-        <>
-          {(() => {
-            const memberships = (data as { client: { memberships: Array<{ plan: string; provider: { name: string }; createdAt: string }> } }).client.memberships;
-            return (
-              <DataTable
+      {client && <DataTable
                 columns={[
                   { key: 'plan', label: 'Plan', render: (m) => <span className="text-slate-800 font-medium capitalize">{m.plan}</span> },
                   { key: 'provider', label: 'Provider', render: (m) => m.provider.name },
                   { key: 'createdAt', label: 'Since', render: (m) => new Date(m.createdAt).toLocaleDateString() },
                 ]}
-                rows={memberships}
-              />
-            );
-          })()}
-        </>
-      )}
+                rows={client.memberships}
+              />}
     </div>
   );
 }
 
 function DetailClientJournals({ clientId, clientName, onClose }: { clientId: string; clientName: string; onClose: () => void }) {
   const { loading, error, data } = useQuery(GET_CLIENT_JOURNAL_ENTRIES, { variables: { id: clientId } });
-
+  const client = (data as { client: Client })?.client;
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
       <div className="flex items-center justify-between mb-4">
@@ -111,22 +99,13 @@ function DetailClientJournals({ clientId, clientName, onClose }: { clientId: str
       </div>
       {loading && <p className="text-slate-500">Loading...</p>}
       {error && <p className="text-red-500">Error: {error.message}</p>}
-      {data && (
-        <>
-          {(() => {
-            const entries = (data as { client: { journalEntries: Array<{ content: string; createdAt: string }> } }).client.journalEntries;
-            return (
-              <DataTable
+      {client && <DataTable
                 columns={[
                   { key: 'content', label: 'Content', render: (j) => <span className="text-slate-700">{j.content.length > 80 ? j.content.slice(0, 80) + '…' : j.content}</span> },
                   { key: 'createdAt', label: 'Date', render: (j) => new Date(j.createdAt).toLocaleDateString() },
                 ]}
-                rows={entries}
-              />
-            );
-          })()}
-        </>
-      )}
+                rows={client.journalEntries}
+              />}
     </div>
   );
 }
